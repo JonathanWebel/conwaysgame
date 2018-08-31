@@ -18,7 +18,6 @@ public class BoardController {
   @PostMapping(value = "/Boards")
   @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:5000"})
   public Board generateNextBoard(@RequestBody Board board){
-    System.out.println("HERE");
     return new Board(service.nextBoard(board.getBoard()));
   }
 }

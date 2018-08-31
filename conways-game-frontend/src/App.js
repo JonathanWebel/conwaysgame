@@ -45,14 +45,12 @@ class BoardDimensions extends React.Component {
                         enter row length:
                         <input type="text" onChange={this.handleChange}/>
                     </label>
-                    <input type="submit" value="Submit"/>
                 </form>
                 <form onSubmit={this.handleSubmit}>
                     <label>
                         enter col length:
                         <input type="text" onChange={this.handleChangeCol}/>
                     </label>
-                    <input type="submit" value="Submit"/>
                 </form>
             </div>
         );
@@ -117,7 +115,7 @@ class App extends Component {
                 this.setState({
                     squares: nextSquares.board,
                     count: this.state.count + 1,
-                    start: !this.state.start,
+                    // start: !this.state.start,
                 });
                 //return nextSquares.board;
             }
@@ -126,23 +124,19 @@ class App extends Component {
 
     componentDidUpdate() {
         if (this.state.count > 0 && !this.state.start) {
-            this.setState({
-                start: true,
-            })
-        }
-        else if (!this.state.start) {
-
         }
     }
 
-    sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds) {
-                break;
-            }
-        }
-    }
+
+
+    // sleep(milliseconds) {
+    //     var start = new Date().getTime();
+    //     for (var i = 0; i < 1e7; i++) {
+    //         if ((new Date().getTime() - start) > milliseconds) {
+    //             break;
+    //         }
+    //     }
+    // }
 
     onRowUpdate(rowPosition) {
         const squares = [];
@@ -181,7 +175,8 @@ class App extends Component {
         const squares = this.state.squares;
         squares[index][index2] = i;
         this.setState({
-            squares: squares
+            squares: squares,
+            start: false
         })
     }
 
@@ -194,7 +189,7 @@ class App extends Component {
     render() {
         if (this.state.start) {
             this.conwaysGame(this.state.squares);
-            this.sleep(500);
+            //this.sleep(500);
         }
         return (
             <div className="App">
@@ -204,7 +199,7 @@ class App extends Component {
                     <BoardDimensions
                         onRowChange={this.onRowUpdate}
                         onColChange={this.onColUpdate}/>
-                    <div className="board">
+                    <div className="board" style={{width:this.state.rowLength*25+"px",height:this.state.columnLength*25+"px"}}>
                         <Board
                             squares={this.state.squares}
                             onClick={(i, index, index2) => this.handleClick(i, index, index2)}/>

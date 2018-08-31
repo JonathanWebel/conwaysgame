@@ -31,7 +31,7 @@
   outline: none;
 }
 .board{
-  height: 1000px;
-  width: 1000px;
+  height: 0px;
+  width: 0px;
   background-color: black;
 }
