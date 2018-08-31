@@ -1,0 +1,37 @@
+.whiteSquare {
+  background: white;
+  border: 1px solid #999;
+  float: left;
+  font-size: 0;
+  font-weight: bold;
+  line-height: 25px;
+  height: 25px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding: 0;
+  text-align: center;
+  width: 25px;
+}
+.blackSquare {
+  background: black;
+  border: 1px solid #999;
+  float: left;
+  font-size: 0px;
+  font-weight: bold;
+  line-height: 25px;
+  height: 25px;
+  margin-right: 0px;
+  margin-top: 0px;
+  padding: 0;
+  text-align: center;
+  width: 25px;
+}
+
+.square:focus {
+  outline: none;
+}
+.board{
+  height: 1000px;
+  width: 1000px;
+  background-color: black;
+}
