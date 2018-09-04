@@ -128,7 +128,6 @@ class App extends Component {
     }
 
 
-
     // sleep(milliseconds) {
     //     var start = new Date().getTime();
     //     for (var i = 0; i < 1e7; i++) {
@@ -199,18 +198,60 @@ class App extends Component {
                     <BoardDimensions
                         onRowChange={this.onRowUpdate}
                         onColChange={this.onColUpdate}/>
-                    <div className="board" style={{width:this.state.rowLength*25+"px",height:this.state.columnLength*25+"px"}}>
+                    <button onClick={() => this.handleStart()}>
+                        {"start"}
+                    </button>
+                    <button onClick={() => this.captureState()}>
+                        {"capture"}
+                    </button>
+                    <button onClick={() => this.getPreset()}>
+                        {"preset 1"}
+                    </button>
+                    <div className="board"
+                         style={{width: this.state.rowLength * 25 + "px", height: this.state.columnLength * 25 + "px"}}>
                         <Board
                             squares={this.state.squares}
                             onClick={(i, index, index2) => this.handleClick(i, index, index2)}/>
                     </div>
-                    <button onClick={() => this.handleStart()}>
-                        {"start"}
-                    </button>
                 </div>
             </div>
 
         );
+    }
+
+    async captureState() {
+        const options = {
+            method: 'Post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                board: this.state.squares,
+            })
+        };
+        const request = new Request("http://localhost:8080/Capture", options);
+        const response = await fetch(request);
+        const status = await response.status;
+    }
+
+    getPreset() {
+        return fetch("http://localhost:8080/PresetOne")
+            .then((response) => response.json())
+            .then((responseJson) => {
+                this.setState({
+                    rowLength: 40,
+                    columnLength: 40,
+                    squares: responseJson.board,
+                    start:true,
+                }, function () {
+
+                });
+
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 }
 
